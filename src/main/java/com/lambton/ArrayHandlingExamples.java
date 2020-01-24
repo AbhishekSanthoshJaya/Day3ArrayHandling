@@ -100,23 +100,77 @@ public class ArrayHandlingExamples
 
     public static void stringArrayHandling()
     {
-        String str[];
-        str = new String[10];
+        String originalStrings[];
+        originalStrings = new String[10];
 
-        str[0] = "Canada";
-        str[1] = new String("India");
-        str[2] = "Nepal";
-        str[3]= "Toronto";
-        str[4]= "New York";
-        str[5]= "PATEL";
-        str[6]= "Ramandeep Singh";
-        str[7]= "Inshant";
-        str[8]= "Scarborough";
-        str[9]= "North York";
+        originalStrings[0] = "Canada";
+        originalStrings[1] = new String("India");
+        originalStrings[2] = "Nepal";
+        originalStrings[3]= "Toronto";
+        originalStrings[4]= "New York";
+        originalStrings[5]= "PATEL";
+        originalStrings[6]= "Ramandeep Singh";
+        originalStrings[7]= "Inshant";
+        originalStrings[8]= "Scarborough";
+        originalStrings[9]= "North York";
 
-        for(int i = 0; i < str.length; i++)
+        String reverseStrings [] = new String[originalStrings.length];
+        String zigZagStrings [] = new String[originalStrings.length];
+
+        System.out.println("\n------ Reverse Strings ------");
+        for(int i = 0; i < originalStrings.length; i++)
         {
-            System.out.println(str[i]);
+            String rev = reverseString(originalStrings[i]);
+            reverseStrings[i] = rev;
+            String zigZag = zigZagMyString(originalStrings[i]);
+            zigZagStrings[i] = zigZag;
+            System.out.println(originalStrings[i] + " <-> " + rev + " <-> " + zigZag);
         }
+
+
+    }
+
+    public static String reverseString(String s)
+    {
+        String temp;
+        char names[] = s.toCharArray();
+        int len = names.length;
+        for(int i = 0, j = len - 1; i < len / 2; i++, j--)
+        {
+            char t = names[i];
+            names[i] = names[j];
+            names[j] = t;
+        }
+
+        temp = new String(names);
+        return temp;
+    }
+
+    public static String zigZagMyString(String s)
+    {
+        String temp ;
+        char names[] = s.toCharArray();
+        char output[] = s.toCharArray();
+        int len = names.length;
+        int count = len - len % 2;
+
+        for(int i = 0; i < count; i+=2)
+        {
+            output[i] = names[i+1];
+            output[i+1] = names[i];
+        }
+        temp = new String(output);
+        if (len % 2 == 1)
+        {
+            String firstPart = temp.substring(0, len / 2);
+            //System.out.println("First Part : " + firstPart) ;
+            String secondPart = temp.substring(len / 2, len - 1);
+            //System.out.println("Second Part : " + secondPart) ;
+            temp = firstPart + output[output.length - 1] + secondPart;
+            //i = i + 1;
+        }
+
+        return temp;
+
     }
 }
